@@ -1,4 +1,4 @@
-# stadium_info
+# Add details to OPTA stadiums
 Code for adding more information to OPTA venueName
 
 ## To do
