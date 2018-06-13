@@ -2,13 +2,7 @@ from pymongo import MongoClient
 import googlemaps, numpy, wikipedia, wptools, re, html, config
 from googlemaps import convert
 from bs4 import BeautifulSoup, NavigableString
-
-gmaps = googlemaps.Client(key = config.gmaps_api_key)
-client = MongoClient()
-if client:
-    matches = client.whoscored.matches
-    stadiums = client.whoscored.stadiums
-    wiki = client.whoscored.wiki
+from settings import matches, stadiums, wiki, gmaps
 
 
 def scrape(stadium, overwrite=False):

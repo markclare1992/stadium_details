@@ -1,13 +1,7 @@
 from pymongo import MongoClient
 import googlemaps, numpy, wikipedia, wptools, re, html, config
 from googlemaps import convert
-gmaps = googlemaps.Client(key = config.gmaps_api_key)
-client = MongoClient()
-if client:
-    matches = client.whoscored.matches
-    stadiums = client.whoscored.stadiums
-    wiki = client.whoscored.wiki
-
+from settings import matches, stadiums, wiki, gmaps
 
 def missing_stadiums():
     for stadium in matches.find().distinct('venueName'):
@@ -15,7 +9,7 @@ def missing_stadiums():
             print(stadium)
 
 
-# Should really save alternative name as variable, and add stadium as a wikipedia type for stadium_checks that are okay.
+# Should really save alternative name as variable, and add stadium as a google place type for stadium_checks that are okay.
 def scrape_stadium_manually(OPTAvenueName,alternativeName, overwrite=False):
     print('Searching for {}'.format(OPTAvenueName))
     if stadiums.find_one({'venueName': OPTAvenueName}) and not overwrite:
