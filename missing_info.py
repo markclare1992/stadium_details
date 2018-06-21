@@ -31,7 +31,7 @@ def scrape_stadium_manually(OPTAvenueName,alternativeName, overwrite=False):
         wiki.replace_one({'venueName': OPTAvenueName}, wiki_data_to_insert, upsert=True)
 
 
-scrape_stadium_manually("Sports Direct Arena", "St James' Park", overwrite=True)
+scrape_stadium_manually("Olimpico", "stadio olimpico", overwrite=True)
 #  Oosterenkstadion demolished, was  52.516997932 6.118832858
 
 def stadium_check():

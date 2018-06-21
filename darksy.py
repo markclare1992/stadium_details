@@ -29,6 +29,22 @@ def scrape_weather(seasonId, overwrite=False):
             weather.replace_one({'matchId': m['matchId']}, weather_data, upsert=True)
 
 
+# Needed a function to overwrite weather data for a venue, if venue location was found to be incorrect
+def update_weather(seasonId, venueName, overwrite=False):
+    for m in matchheaders.find({'seasonId': seasonId}):
+        stad = stadium_matchId.find_one({'matchId': m['matchId'], 'venueName': venueName})
+        if stad:
+            stad_loc = stadiums.find_one({'venueName': stad['venueName']})
+            weather_data = {'matchId':m['matchId'],
+                        'startTime': int(convert_timestamp(m['startTime'])),
+                        'data': historical_request(stad_loc['location_data']['geometry']['location']['lat'],
+                                                  stad_loc['location_data']['geometry']['location']['lng'],
+                                                  int(convert_timestamp(m['startTime'])))}
+
+            weather.replace_one({'matchId': m['matchId']}, weather_data, upsert=True)
+
+
+
 # API returns weather data for every hour on requested day, unwind hour data, keep data entry for hour which is closest
 # to kick off for each game
 pipeline = [
@@ -76,4 +92,5 @@ pipeline = [
 
 if __name__ == "__main__":
     #scrape_weather(6833)
+    #update_weather(6974, 'Olimpico', overwrite=True)
     weather.aggregate(pipeline, allowDiskUse=True)
