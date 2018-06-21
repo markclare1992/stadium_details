@@ -2,6 +2,7 @@ from pymongo import MongoClient
 import googlemaps, config
 client = MongoClient()
 gmaps = googlemaps.Client(key = config.gmaps_api_key)
+
 if client:
     matches = client.opta.matches
     stadiums = client.opta.stadiums
@@ -9,4 +10,6 @@ if client:
     eventsSorted = client.opta.eventsSorted
     matchdetails = client.opta.matchdetails
     goals = client.opta.goals
-
+    weather = client.opta.weather
+    matchheaders = client.opta.matchheaders
+    stadium_matchId = client.opta.stadium_matchId

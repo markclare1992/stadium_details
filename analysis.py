@@ -1,4 +1,4 @@
-from settings import matches, stadiums, wiki, eventsSorted, matchdetails, goals, goals_expanded
+from settings import matches, stadiums, wiki, eventsSorted, matchdetails, goals
 
 pipeline = [
     {"$project": {"matchId":1, "venueName": 1}},

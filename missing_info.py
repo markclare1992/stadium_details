@@ -16,7 +16,7 @@ def scrape_stadium_manually(OPTAvenueName,alternativeName, overwrite=False):
         print('Already in db')
         return True
 
-    wiki_name = wikipedia.search(html.unescape(alternativeName + ' alternativeName'))
+    wiki_name = wikipedia.search(html.unescape(alternativeName + ' stadium'))
     geocode_result = gmaps.geocode(alternativeName)
     if geocode_result:
         elevation_result = gmaps.elevation(convert.normalize_lat_lng(geocode_result[0]['geometry']['location']))
@@ -31,7 +31,7 @@ def scrape_stadium_manually(OPTAvenueName,alternativeName, overwrite=False):
         wiki.replace_one({'venueName': OPTAvenueName}, wiki_data_to_insert, upsert=True)
 
 
-#scrape_stadium_manually("Municipal de Chap�n", "Municipal de Chapín")
+scrape_stadium_manually("Sports Direct Arena", "St James' Park", overwrite=True)
 #  Oosterenkstadion demolished, was  52.516997932 6.118832858
 
 def stadium_check():
@@ -45,6 +45,13 @@ def wiki_check():
     to confirm both are about the same venue"""
 
 
-stadium_check()
+def stadium_id():
+    """ Create id for stadiums to solve problem of multiple venueName for same stadium
+    ie. KCOM stadium, the KC stadium, The Kingston Communications Stadium"""
 
-# Almaarderhout should be Alkmaarderhout
+
+#stadium_check()
+
+#Almaarderhout should be Alkmaarderhout
+
+#missing_stadiums()
